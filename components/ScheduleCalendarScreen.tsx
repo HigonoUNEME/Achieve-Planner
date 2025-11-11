@@ -7,7 +7,7 @@ interface ScheduleCalendarScreenProps {
   onToggleComplete: (id: string) => void;
 }
 
-const TaskItem: React.FC<{ item: ScheduleTask; isLast: boolean; onToggleComplete: (id: string) => void }> = ({ item, isLast, onToggleComplete }) => {
+const TaskItem: React.FC<{ item: ScheduleTask; isLast: boolean; onToggleComplete: (id: string) => void }> = React.memo(({ item, isLast, onToggleComplete }) => {
     const isCompleted = item.completed;
 
     return (
@@ -34,9 +34,9 @@ const TaskItem: React.FC<{ item: ScheduleTask; isLast: boolean; onToggleComplete
             </div>
         </div>
     );
-};
+});
 
-const SchedulePartComponent: React.FC<{ part: SchedulePart; onToggleComplete: (id: string) => void; }> = ({ part, onToggleComplete }) => {
+const SchedulePartComponent: React.FC<{ part: SchedulePart; onToggleComplete: (id: string) => void; }> = React.memo(({ part, onToggleComplete }) => {
     return (
         <div className="mb-12 bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-gray-200">
             {/* Part header */}
@@ -77,7 +77,7 @@ const SchedulePartComponent: React.FC<{ part: SchedulePart; onToggleComplete: (i
             </div>
         </div>
     );
-};
+});
 
 export const ScheduleCalendarScreen: React.FC<ScheduleCalendarScreenProps> = ({ schedule, onToggleComplete }) => {
   if (schedule.length === 0) {

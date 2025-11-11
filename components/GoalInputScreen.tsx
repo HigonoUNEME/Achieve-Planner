@@ -1,17 +1,37 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface GoalInputScreenProps {
   onGoalSubmit: (goal: string) => void;
   isLoading: boolean;
 }
 
-const LoadingSpinner = () => (
-    <div className="flex flex-col items-center justify-center space-y-2">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-        <p className="text-secondary">Generating your personalized plan...</p>
-    </div>
-);
+const loadingMessages = [
+    "Analyzing your goal...",
+    "Structuring the learning path...",
+    "Crafting daily tasks and methods...",
+    "Adding practice problems to test your knowledge...",
+    "Finalizing your personalized plan...",
+    "Just a moment longer, greatness takes time!"
+];
+
+const LoadingSpinner = () => {
+    const [messageIndex, setMessageIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setMessageIndex(prevIndex => (prevIndex + 1) % loadingMessages.length);
+        }, 2500); // Change message every 2.5 seconds
+
+        return () => clearInterval(interval);
+    }, []);
+    
+    return (
+        <div className="flex flex-col items-center justify-center space-y-4">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            <p className="text-secondary transition-opacity duration-500 ease-in-out">{loadingMessages[messageIndex]}</p>
+        </div>
+    );
+};
 
 
 export const GoalInputScreen: React.FC<GoalInputScreenProps> = ({ onGoalSubmit, isLoading }) => {
