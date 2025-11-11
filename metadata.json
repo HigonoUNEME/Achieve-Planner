@@ -1,0 +1,5 @@
+{
+  "name": "Achieve Planner",
+  "description": "An AI-powered web application to help you create, schedule, and track your learning goals. Input your objective, and let AI generate a personalized plan for you.",
+  "requestFramePermissions": []
+}
